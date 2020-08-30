@@ -10,24 +10,6 @@ import java.time.LocalDate;
 
 public class QueryLineParser extends AbstractLineParser {
 
-    private static volatile QueryLineParser instance;
-
-    private QueryLineParser() {
-    }
-
-    protected static QueryLineParser getInstance() {
-        QueryLineParser result = instance;
-        if (result != null) {
-            return result;
-        }
-        synchronized (QueryLineParser.class) {
-            if (instance == null) {
-                instance = new QueryLineParser();
-            }
-        }
-        return instance;
-    }
-
     public Query parseLine(String line) {
         String[] lineParts = getLineParts(line);
         Service service = parseService(lineParts[1]);

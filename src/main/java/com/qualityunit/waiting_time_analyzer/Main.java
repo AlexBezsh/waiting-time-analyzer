@@ -16,6 +16,15 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) {
+        DataProcessor dataProcessor = initDataProcessor(args);
+        try {
+            dataProcessor.processData();
+        } catch (IncorrectDataException e) {
+            ConsoleHelper.exitProgram("Incorrect data: " + e.getMessage());
+        }
+    }
+
+    private static DataProcessor initDataProcessor(String[] args) {
         BufferedReader reader = args.length == 1 ? DataSourceHelper.getReader(args[0]) : DataSourceHelper.getReader();
         LineProvider provider = null;
         try {
@@ -24,11 +33,6 @@ public class Main {
             ConsoleHelper.exitProgram("An IOException occurred during initialization of line provider");
         }
         QueryExecutor queryExecutor = new AverageWaitingTimeQueryExecutor(System.out);
-        DataProcessor dataProcessor = new SequentialDataProcessor(provider, queryExecutor);
-        try {
-            dataProcessor.processData();
-        } catch (IncorrectDataException e) {
-            ConsoleHelper.exitProgram("Incorrect data: " + e.getMessage());
-        }
+        return new SequentialDataProcessor(provider, queryExecutor);
     }
 }

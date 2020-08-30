@@ -10,24 +10,6 @@ import java.time.LocalDate;
 
 public class WaitingTimeLineParser extends AbstractLineParser {
 
-    private static volatile WaitingTimeLineParser instance;
-
-    private WaitingTimeLineParser() {
-    }
-
-    protected static WaitingTimeLineParser getInstance() {
-        WaitingTimeLineParser result = instance;
-        if (result != null) {
-            return result;
-        }
-        synchronized (WaitingTimeLineParser.class) {
-            if (instance == null) {
-                instance = new WaitingTimeLineParser();
-            }
-        }
-        return instance;
-    }
-
     public WaitingTimeLine parseLine(String line) {
         String[] lineParts = getLineParts(line);
         Service service = getValidService(lineParts[1]);
