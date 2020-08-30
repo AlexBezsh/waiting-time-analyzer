@@ -42,7 +42,7 @@ public class SequentialDataProcessor implements DataProcessor {
                 }
             }
         } catch (IOException e) {
-            ConsoleHelper.print("IOException occurred");
+            e.printStackTrace();
         }
     }
 }
