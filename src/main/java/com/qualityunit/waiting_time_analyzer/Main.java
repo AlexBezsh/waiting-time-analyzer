@@ -21,7 +21,7 @@ public class Main {
         try {
             provider = new DirectLineProvider(reader);
         } catch (IOException e) {
-            ConsoleHelper.exitProgram("IOException occurred");
+            ConsoleHelper.exitProgram("An IOException occurred during initialization of line provider");
         }
         QueryExecutor queryExecutor = new AverageWaitingTimeQueryExecutor(System.out);
         DataProcessor dataProcessor = new SequentialDataProcessor(provider, queryExecutor);
