@@ -1,19 +1,20 @@
 package com.qualityunit.waiting_time_analyzer.data_processor;
 
-import com.qualityunit.waiting_time_analyzer.util.ConsoleHelper;
+import com.qualityunit.waiting_time_analyzer.exception.IncorrectDataException;
 import com.qualityunit.waiting_time_analyzer.line.Line;
 import com.qualityunit.waiting_time_analyzer.line.LineType;
 import com.qualityunit.waiting_time_analyzer.line.Query;
 import com.qualityunit.waiting_time_analyzer.line.WaitingTimeLine;
 import com.qualityunit.waiting_time_analyzer.line_provider.LineProvider;
 import com.qualityunit.waiting_time_analyzer.query_executor.QueryExecutor;
+import com.qualityunit.waiting_time_analyzer.util.ConsoleHelper;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * When a LineProvider provides a query, this data processor executes it immediately
+ * When a line provider provides a query, this data processor executes it immediately
  * using the waiting time lines obtained before this query.
  */
 public class SequentialDataProcessor implements DataProcessor {
@@ -29,12 +30,13 @@ public class SequentialDataProcessor implements DataProcessor {
      * Takes lines from <code>{@link LineProvider}</code> until it return's null.
      * <p>If line is a waiting time line, add's it in the list.
      * <p>if it is a query line, executes it immediately using the waiting time lines obtained before this query.
+     * @throws IncorrectDataException from line provider
      */
     public void processData() {
         List<WaitingTimeLine> waitingTimeLines = new ArrayList<>();
         try {
             Line line;
-            while ((line = lineProvider.getNextLine()) != null) {
+            while ((line = lineProvider.getLine()) != null) {
                 if (line.getLineType() == LineType.C) {
                     waitingTimeLines.add((WaitingTimeLine) line);
                 } else {
@@ -42,7 +44,7 @@ public class SequentialDataProcessor implements DataProcessor {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            ConsoleHelper.exitProgram("An IOException occurred during data processing");
         }
     }
 }

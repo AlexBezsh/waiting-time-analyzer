@@ -29,7 +29,7 @@ public class DirectLineProvider extends AbstractLineProvider {
      * @throws IncorrectDataException if source contains incorrect data.
      * @throws IOException if an I/O exception occurs or in case of calling this method after all data has already been read.
      */
-    public Line getNextLine() throws IOException {
+    public Line getLine() throws IOException {
         String line = readLine();
         if (checkSourceEnd(line)) {
             finish();

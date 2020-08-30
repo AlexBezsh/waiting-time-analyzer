@@ -9,8 +9,8 @@ import java.util.List;
 
 public class AverageWaitingTimeQueryExecutor extends AbstractQueryExecutor {
 
-    public AverageWaitingTimeQueryExecutor(PrintStream outputDestination) {
-        super(outputDestination);
+    public AverageWaitingTimeQueryExecutor(PrintStream resultOutputDestination) {
+        super(resultOutputDestination);
     }
 
     /**
@@ -40,10 +40,10 @@ public class AverageWaitingTimeQueryExecutor extends AbstractQueryExecutor {
 
     private void printResult(List<WaitingTimeLine> resultList) {
         if (resultList.size() == 0) {
-            outputDestination.println("-");
+            resultOutputDestination.println("-");
         } else {
             int sum = resultList.stream().mapToInt(WaitingTimeLine::getResponseTime).sum();
-            outputDestination.println(sum / resultList.size());
+            resultOutputDestination.println(sum / resultList.size());
         }
     }
 }

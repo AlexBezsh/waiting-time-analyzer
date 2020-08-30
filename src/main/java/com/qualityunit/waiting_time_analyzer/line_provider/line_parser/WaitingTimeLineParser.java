@@ -66,7 +66,7 @@ public class WaitingTimeLineParser extends AbstractLineParser {
         int responseTime;
         try {
             responseTime = Integer.parseInt(responseTimeString);
-            if (responseTime < 1) {
+            if (responseTime < 0) {
                 throw new NumberFormatException();
             }
         } catch (NumberFormatException e) {

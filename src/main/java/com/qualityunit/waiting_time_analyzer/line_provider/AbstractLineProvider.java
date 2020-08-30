@@ -29,13 +29,13 @@ public abstract class AbstractLineProvider implements LineProvider {
 
     private void checkLinesNumber(int linesNumber) {
         if (linesNumber < 1 || linesNumber > 100_000) {
-            throw new IncorrectDataException("Source of data must contain from 1 to 100 000 lines.");
+            throw new IncorrectDataException("Data source must contain from 1 to 100 000 lines.");
         }
     }
 
     protected String readLine() throws IOException {
         String line = source.readLine();
-        if (line.trim().length() == 0) {
+        if (line != null && line.trim().length() == 0) {
             throw new IncorrectDataException("Data source contains empty line");
         }
         return line;
@@ -56,7 +56,7 @@ public abstract class AbstractLineProvider implements LineProvider {
             if (line == null) {
                 return true;
             } else {
-                throw new IncorrectDataException("Lines source contains more lines than was specified at the beginning.");
+                throw new IncorrectDataException("Data source contains more lines than was specified at the beginning.");
             }
         } else if (line == null) {
             throw new IncorrectDataException("Expected lines number: " + linesNumber + ". Actual: " + (lineOrdinal - 1) + ".");

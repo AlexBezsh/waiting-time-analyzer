@@ -5,5 +5,5 @@ import com.qualityunit.waiting_time_analyzer.line.Line;
 import java.io.IOException;
 
 public interface LineProvider {
-    Line getNextLine() throws IOException;
+    Line getLine() throws IOException;
 }
